@@ -29,6 +29,7 @@ export async function logIn(prevState: unknown, formData: unknown) {
 
 	try {
 		await signIn("credentials", formData);
+		redirect('/payment')
 	} catch (error) {
 		if (error instanceof AuthError) {
 			switch (error.type) {
@@ -44,7 +45,7 @@ export async function logIn(prevState: unknown, formData: unknown) {
 				}
 			}
 		}
-
+		revalidatePath("/app", "layout");
 		throw error; // nextjs redirects throws error, so we need to rethrow it
 	}
 }
@@ -229,7 +230,7 @@ export async function createCheckoutSession() {
 		customer_email: session.user.email,
 		line_items: [
 			{
-				price: "price_1OfpJ7FIW685mC8GCahpbCed",
+				price: process.env.STRIPE_PRICE_ID,
 				quantity: 1,
 			},
 		],
