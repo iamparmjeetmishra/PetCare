@@ -42,7 +42,7 @@ function TopBar({ pet }: Pet) {
 				{pet.name}
 			</h2>
 			<div className="ml-auto flex gap-4">
-				<PetButton actionType={"edit"} />
+				<PetButton actionType={"edit"} >Edit</PetButton>
 				<PetButton
 					actionType={"checkout"}
 					onClick={async () => await handleCheckoutPet(pet.id)}
